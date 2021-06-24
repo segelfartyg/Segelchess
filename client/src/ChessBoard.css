@@ -1,0 +1,10 @@
+.chessboard{
+
+    width: fit-content;
+    height: fit-content;
+
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+   
+}

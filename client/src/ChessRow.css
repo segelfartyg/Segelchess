@@ -1,0 +1,5 @@
+.chessrow{
+    height: fit-content;
+    display: flex;
+    width: fit-content;
+}

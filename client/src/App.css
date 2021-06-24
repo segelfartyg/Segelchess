@@ -1,0 +1,10 @@
+.App {
+  text-align: center;
+  display: grid;
+  margin: auto;
+  height: 100%;
+  grid-template-rows: fit-content;
+  
+}
+
+

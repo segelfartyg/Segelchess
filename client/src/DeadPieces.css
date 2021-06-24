@@ -1,0 +1,17 @@
+.deadpieces{
+    display: grid;
+ 
+}
+
+.infodiv{
+    margin: auto;
+    text-align: center;
+    align-items: center;
+    height: fit-content;
+  
+    text-decoration: none;
+}
+
+ul{
+    list-style: none;
+}

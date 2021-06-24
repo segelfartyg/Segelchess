@@ -1,0 +1,27 @@
+.chooseroomname{
+    position: absolute;
+    
+    width: 200px;
+    height: 200px;
+    background: white;
+    text-align: center;
+
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+
+
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-top: auto;
+    padding: 10px;
+    border: solid black;
+}
+
+.nodisplay{
+
+    display: none;
+}

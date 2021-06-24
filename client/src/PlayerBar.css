@@ -1,0 +1,23 @@
+.playerbar{
+    width: fit-content;
+    position: absolute;
+
+    right: 0;
+    left: 0;
+
+    margin-right: auto;
+    margin-left: auto;
+    height: 10px;
+   font-size: 26px;
+}
+
+.player2{
+
+
+    bottom: 70px;
+}
+
+.player1{
+
+top: 70px;
+}
