@@ -5,7 +5,6 @@ const path = require("path"),
   express = require("express"),
   bodyParser = require("body-parser"),
   exampleRouter = require("./routes/examples.server.routes");
-
 const socketio = require("socket.io");
 
 
