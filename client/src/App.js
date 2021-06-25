@@ -10,7 +10,7 @@ import React, {useState, useRef, useEffect} from "react";
 
 
 import socketClient  from "socket.io-client";
-const SERVER = "/";
+const SERVER = "http://localhost:8080";
 
 var socket = socketClient(SERVER);
 
