@@ -3,11 +3,27 @@ import "./TurnShow.css";
 
 export default function TurnShow(props) {
 
+let content;
+let style = "turnshow";
 
+
+if(props.currentplayername !== ""){
+
+
+    content = props.currentplayername + " 's turn";
+
+}
+else{
+    content = "WAITING FOR ANOTHER PLAYER";
+}
+
+if(!props.show){
+    style += " noshow";
+}
 
     return (
-        <div className="turnshow">
-            {props.currentplayername}'s turn. 
+        <div className={style}>
+            {content}
         </div>
     )
 

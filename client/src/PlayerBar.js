@@ -12,14 +12,14 @@ if(props.playernames !== undefined){
 
        
         style = "playerbar " + "player2";
-        if(props.playernames[1] !== undefined){
+        if(props.playernames[1] !== ""){
            content = props.playernames[1];
         }      
     }
     if(props.playernumber === "1"){
 
         style = "playerbar " + "player1";
-        if(props.playernames[0] !== undefined){
+        if(props.playernames[0] !== ""){
             content = props.playernames[0];
         }
     }

@@ -28,6 +28,10 @@
     display: none;
 }
 
+.noshow{
+    display: none;
+}
+
 .rooms{
     display: flex;
    justify-content: center;

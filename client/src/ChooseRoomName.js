@@ -25,6 +25,8 @@ export default function ChooseRoomName(props) {
 
     function onPressed(room){
 
+
+        props.showTurnShow();
   
        props.onUserNamePress(username.current.value, room);
     }

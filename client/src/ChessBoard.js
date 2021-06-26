@@ -52,7 +52,7 @@ export default function ChessBoard(props) {
   var colored = [];
   var available = [];
 
-  const current = useRef(props.currentplayer);
+  const current = useRef(props.currentplayer.current);
 
   const vertical = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
@@ -828,7 +828,7 @@ export default function ChessBoard(props) {
 
   function onsendNodePlacement(_node, _piece) {
    
-if(props.currentplayer == props.playernumber){
+if(props.currentplayer.current == props.playernumber){
  
     
     if (_node.split("_")[1] === "yellow" && _node.split("_")[0] === _piece) {
@@ -839,7 +839,7 @@ if(props.currentplayer == props.playernumber){
       _node.split("_")[1] === "green" &&
       _node.split("_")[0] === _piece
     ) {
-      if (props.currentplayer === "1") {
+      if (props.currentplayer.current === "1") {
         p1Positions.current = ({ ...p1Positions.current, [current.current]: _node.split("_")[0] });
         
       
@@ -848,7 +848,7 @@ if(props.currentplayer == props.playernumber){
         onBoardSend(gameBoardinit, p1Positions, p2Positions);
         reRender(colored, true);
        
-      } else if (props.currentplayer === "2") {
+      } else if (props.currentplayer.current === "2") {
         p2Positions.current = ({ ...p2Positions.current, [current.current]: _node.split("_")[0] });
         
         
@@ -895,7 +895,7 @@ if(props.currentplayer == props.playernumber){
     } else {
       
 
-      if(_piece.slice(-1) === props.currentplayer){
+      if(_piece.slice(-1) === props.currentplayer.current){
 
         current.current = _piece;
   
