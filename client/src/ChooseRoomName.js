@@ -4,7 +4,7 @@ import "./ChooseRoomName.css";
 export default function ChooseRoomName(props) {
 
     const username = useRef();
-    const room = useRef();
+
 
     var style = "chooseroomname"
     var inside = "";
@@ -23,10 +23,10 @@ export default function ChooseRoomName(props) {
     }
 
 
-    function onPressed(){
+    function onPressed(room){
 
-       
-       props.onUserNamePress(username.current.value, room.current.id);
+  
+       props.onUserNamePress(username.current.value, room);
     }
 
     return (
@@ -42,25 +42,25 @@ export default function ChooseRoomName(props) {
             <div>
             <p>SEGEL 1</p>
        
-            <button id="1" ref={room} className="roombutton" onClick={onPressed}>JOIN</button>
+            <button id="1"  className="roombutton" onClick={() => onPressed(1)}>JOIN</button>
 
-             {inside}
-             <p>0/2</p>
+           
+             <p>{props.inside[0]}/2</p>
              </div>
 
              <div>
              <p>SEGEL 2</p>
-            <button  id="2" ref={room} className="roombutton" onClick={onPressed}>JOIN</button>
-             {inside}
-             <p>0/2</p>
+            <button  id="2" className="roombutton" onClick={() => onPressed(2)}>JOIN</button>
+             
+             <p>{props.inside[1]}/2</p>
              </div>
 
 
             <div>
              <p>SEGEL 3</p>
-            <button  id="3" ref={room} className="roombutton" onClick={onPressed}>JOIN</button>
-             {inside}
-             <p>0/2</p>
+            <button  id="3" className="roombutton" onClick={() => onPressed(3)}>JOIN</button>
+        
+             <p>{props.inside[2]}/2</p>
              </div>
             </div>
           

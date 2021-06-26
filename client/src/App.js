@@ -22,8 +22,9 @@ function App() {
 
 
   
-
+const [inside, setinside] = useState([0, 0, 0]);
 const [display, setdisplay] = useState(true);
+const room = useRef("");
 const [playernumber, setplayernumber] = useState("");
 const [currentplayer, setcurrentplayer] = useState("1");
 const [playernames, setplayernames] = useState([]);
@@ -39,27 +40,46 @@ const [player2dead, setplayer2dead] = useState([]);
 // }, [currentplayer]);
 
 
-socket.on("assignnames", (data) => {
 
 
-  let newarr = playernames;
+socket.off("assignnames").on("assignnames", (roomplayers) => {
 
-  newarr.push(data);
 
-  setplayernames(newarr);
+
+ 
+
+  setplayernames(roomplayers);
 
   console.log(playernames);
- 
-  setcurrentplayername(playernames[0][0]);
- 
-
-
+  console.log("HEJHOPP");
+  setcurrentplayername(playernames[0]);
+ console.log(playernames);
  });
 
+ 
+socket.off("sendroom").on("sendroom", (currentroom) => {
+ 
+room.current = currentroom;
+console.log("Client connected to: " + room.current);
 
+
+});
+
+
+
+
+socket.off("sendplayersinrooms").on("sendplayersinrooms", (playersinrooms) => {
+ 
+  console.log(playersinrooms);
+  setinside(playersinrooms);
+ 
+ 
+});
 
 
 function onUserNamePress(username, room){
+
+  
 
   socket.emit("login", username, room);
 
@@ -71,9 +91,7 @@ function onUserNamePress(username, room){
    setplayername(name);
    setdisplay(false);
   
-
- 
-  })
+  });
 
 
 
@@ -133,11 +151,11 @@ if(_player === "2"){
     <div className="App">
      
       <TurnShow currentplayer={currentplayer} currentplayername={currentplayername}></TurnShow>
-      <ChooseRoomName onUserNamePress={onUserNamePress} display={display}></ChooseRoomName>
+      <ChooseRoomName onUserNamePress={onUserNamePress} display={display} inside={inside}></ChooseRoomName>
       <PlayerBar playernumber="1" playernames={playernames}></PlayerBar>
       <GameArea>
       <DeadPieces player="1" deadpieces={player1dead} key="1"></DeadPieces>
-      <ChessBoard key="g1"  playernumber={playernumber} socket={socket} currentplayer={currentplayer} onPlayerChange={onPlayerChange} onPieceKnockout={onPieceKnockout}></ChessBoard>
+      <ChessBoard key="g1" room={room} playernumber={playernumber} socket={socket} currentplayer={currentplayer} onPlayerChange={onPlayerChange} onPieceKnockout={onPieceKnockout}></ChessBoard>
       <DeadPieces player="2" deadpieces={player2dead} key="2"></DeadPieces>
       </GameArea>
       <PlayerBar playernumber="2" playernames={playernames}></PlayerBar>

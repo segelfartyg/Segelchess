@@ -19,19 +19,16 @@ export default function ChessBoard(props) {
   props.socket.removeAllListeners("getboard");  
 
   
-  props.socket.on("getboard", (data) => {
+  props.socket.on("getboard", (room, data) => {
 
-
-   
-    setgameBoard(data.board);
-    p1Positions.current = data.p1.current;
-    p2Positions.current = data.p2.current;
-    props.onPlayerChange();
-    reRender([]);
-    
-
-   
-    
+    if(room == props.room.current){
+      setgameBoard(data.board);
+      p1Positions.current = data.p1.current;
+      p2Positions.current = data.p2.current;
+      props.onPlayerChange();
+      reRender([]);
+    }
+  
   });
  
  
@@ -40,10 +37,9 @@ export default function ChessBoard(props) {
   
   function onBoardSend(_board, _p1positions, _p2positions){
     
- 
-    
+    console.log(props.room.current);
 
-    props.socket.emit("changeboard", { board: _board, p1: _p1positions, p2: _p2positions });
+    props.socket.emit("changeboard", props.room.current, { board: _board, p1: _p1positions, p2: _p2positions });
     
   
   
