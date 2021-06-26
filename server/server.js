@@ -46,6 +46,10 @@ var playernames = [];
 var playercount = 0;
 var currentboarddata;
 
+var room1players = [];
+var room2players = [];
+var room3players = [];
+
 
 
 io.on('connection', (socket) => { /* socket object may be used to send specific messages to the new connected client */
@@ -54,7 +58,6 @@ io.on('connection', (socket) => { /* socket object may be used to send specific 
     //socket.emit("player", playercount);
 
     socket.on("disconnect", (data) => {
-
         playercount = 0;
         playernames = [];
         console.log("disconnected");
@@ -75,10 +78,33 @@ io.on('connection', (socket) => { /* socket object may be used to send specific 
         }
     })
 
-    socket.once("login", (data) => {
+    socket.once("login", (username, room) => {
+        console.log(room);
         console.log("Welcome player " + playercount);
+
+
+        switch(room){
+
+            case 1:
+                room1players.push(username);
+            break;
+            case 2:
+                room2players.push(username);
+            break;
+            case 3:
+                room3players.push(username);
+            break;
+
+            default:
+            break;
+
+
+
+        }
+
+
         players.push(playercount++);
-        playernames.push(data);
+        playernames.push(username);
         socket.emit("assignnames", playernames);
         socket.emit("playerid", playercount);
 

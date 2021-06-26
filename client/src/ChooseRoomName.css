@@ -17,11 +17,30 @@
     margin-right: auto;
     margin-bottom: auto;
     margin-top: auto;
-    padding: 10px;
-    border: solid black;
+    padding: 25px;
+    border: solid black 5px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgb(41, 41, 41);
 }
 
 .nodisplay{
 
     display: none;
+}
+
+.rooms{
+    display: flex;
+   justify-content: center;
+   height: fit-content;
+ 
+}
+
+.rooms div{
+    margin: 5px;
+    height: fit-content;
+}
+
+.roombutton{
+    height: 40px;
+    font-family: 'Staatliches', cursive;
 }

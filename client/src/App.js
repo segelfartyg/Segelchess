@@ -11,7 +11,6 @@ import React, {useState, useRef, useEffect} from "react";
 
 import socketClient  from "socket.io-client";
 const SERVER = "/";
-
 var socket = socketClient(SERVER);
 
 
@@ -60,9 +59,9 @@ socket.on("assignnames", (data) => {
 
 
 
-function onUserNamePress(username){
+function onUserNamePress(username, room){
 
-  socket.emit("login", username);
+  socket.emit("login", username, room);
 
 
 
