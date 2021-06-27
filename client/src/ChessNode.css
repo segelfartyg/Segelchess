@@ -1,6 +1,6 @@
 .chessnode{
-    width: 75px;
-    height: 75px;
+    width: 4.5vw;
+    height: 4.5vw;
     margin: auto;
     background: linear-gradient(60deg, rgb(44, 44, 44) 0%, rgb(58, 58, 58) 50%, rgb(66, 66, 66) 100%);
     background: linear-gradient(60deg, rgb(185, 185, 185) 0%, rgb(218, 218, 218) 50%, rgb(238, 238, 238) 100%);
