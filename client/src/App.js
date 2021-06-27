@@ -18,7 +18,8 @@ function App() {
   const [inside, setinside] = useState([0, 0, 0]);
   const [display, setdisplay] = useState(true);
   const room = useRef("");
-  const [deadpieces, setdeadpieces] = useState(["p2"]);
+  const [deadpieces1, setdeadpieces1] = useState(["p1"]);
+  const [deadpieces2, setdeadpieces2] = useState(["p2"]);
   const [playernumber, setplayernumber] = useState("");
   const currentplayer = useRef("1");
   const [playernames, setplayernames] = useState([]);
@@ -42,9 +43,30 @@ function App() {
   });
 
   socket.off("senddeadpieces").on("senddeadpieces", (data) => {
-    console.log(data);
-    setdeadpieces(data);
     
+    var temp1 = [];
+    
+    var temp2 = [];
+
+    data.map((element) => {
+
+
+      if(element.slice(-1) == "1"){
+        temp1.push(element);
+      }
+      if(element.slice(-1) == "2"){
+        temp2.push(element);
+      }
+    })
+
+    setdeadpieces1(temp1);
+    setdeadpieces2(temp2);
+  });
+
+  
+  socket.off("senddeadpieces2").on("senddeadpieces2", (data) => {
+    console.log(data);
+    setdeadpieces2(data);
   });
 
   socket.off("sendroom").on("sendroom", (currentroom) => {
@@ -118,7 +140,7 @@ console.log("you friend left lobby");
       ></ChooseRoomName>
       <PlayerBar playernumber="1" playernames={playernames}></PlayerBar>
       <GameArea>
-        <DeadPieces player="1" deadpieces={deadpieces} key="1"></DeadPieces>
+        <DeadPieces player="1" deadpieces={deadpieces1} key="1"></DeadPieces>
         <ChessBoard
           key="g1"
           room={room}
@@ -128,7 +150,7 @@ console.log("you friend left lobby");
           onPlayerChange={onPlayerChange}
           onPieceKnockout={onPieceKnockout}
         ></ChessBoard>
-        <DeadPieces player="2" deadpieces={player2dead} key="2"></DeadPieces>
+        <DeadPieces player="2" deadpieces={deadpieces2} key="2"></DeadPieces>
       </GameArea>
       <LastRow>
       <TurnShow

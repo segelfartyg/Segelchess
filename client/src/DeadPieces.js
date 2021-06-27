@@ -19,7 +19,14 @@ import peasant from './whiteboldpeasant.svg';
 
 export default function DeadPieces(props) {
 
-    
+    let style = "deadpieces";
+
+    if(props.player === "1"){
+        style += " player1";
+    }
+    if(props.player === "2"){
+        style += " player2";
+    }
     function getPiece(_piece){
 
    
@@ -94,10 +101,10 @@ export default function DeadPieces(props) {
 
 
     return (
-        <div className="deadpieces">
-            <ul className="infodiv">
-            {props.deadpieces.map((element) => <li key={Math.random()}>{getPiece(element)}</li>)}
-            </ul>
+        <div className={style}>
+           
+            {props.deadpieces.map((element) => <div className="piece" key={Math.random()}>{getPiece(element)}</div>)}
+          
         </div>
     )
 }

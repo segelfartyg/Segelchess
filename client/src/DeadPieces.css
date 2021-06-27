@@ -1,5 +1,8 @@
 .deadpieces{
     display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+
  
 }
 
@@ -7,9 +10,20 @@
     margin: auto;
     text-align: center;
     align-items: center;
+    display: flex;
+    flex-direction: row;
     height: fit-content;
   
     text-decoration: none;
+}
+
+.piece{
+    height: 7vh;
+    width: fit-content;
+}
+
+.player2{
+    direction: rtl;
 }
 
 ul{
