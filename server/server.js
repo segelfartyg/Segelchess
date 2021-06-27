@@ -15,10 +15,10 @@ app.use(bodyParser.json());
 app.use("/api/example", exampleRouter);
 
 if (process.env.NODE_ENV === "production") {
-  // Serve any static files
+  
   app.use(express.static(path.join(__dirname, "./../client/build")));
 
-  // Handle React routing, return all requests to React app
+
   app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "./../client/build", "index.html"));
   });
@@ -58,7 +58,7 @@ io.on("connection", (socket) => {
   /* socket object may be used to send specific messages to the new connected client */
 
 
-var userId = Math.random() * 10;
+
 
 
 
@@ -110,11 +110,15 @@ var userId = Math.random() * 10;
   });
 
   socket.on("login", (username, room) => {
+
+    var userId = Math.random() * 10;
     socket.join(room);
-    socket.username = username;
+    socket.username = username + "_" + userId;
+
+
     switch (room) {
       case 1:
-        room1players.push(username);
+        room1players.push(username + "_" + userId);
         io.emit("playerjoined", 1);
         console.log("Welcome player " + playercount1);
         players.push(playercount1++);
@@ -128,7 +132,7 @@ var userId = Math.random() * 10;
 
         break;
       case 2:
-        room2players.push(username);
+        room2players.push(username + "_" + userId);
         io.emit("playerjoined", 2);
         console.log("Welcome player " + playercount2);
         players.push(playercount2++);
@@ -143,7 +147,7 @@ var userId = Math.random() * 10;
 
         break;
       case 3:
-        room3players.push(username);
+        room3players.push(username + "_" + userId);
         io.emit("playerjoined", 3);
         console.log("Welcome player " + playercount3);
         players.push(playercount3++);
@@ -244,19 +248,44 @@ var userId = Math.random() * 10;
     console.log(socket.username);
 
 
-   
-room1players = room1players.filter(e => e !== socket.username);
-room2players = room2players.filter(e => e !== socket.username);
-room3players = room3players.filter(e => e !== socket.username);
+var temp1 = room1players;
+room1players = room1players.filter(e => e != socket.username);
 
-playernumber1 = true;
-playernumber2 = true;
-playernumber3 = true;
+if(room1players.length < temp1.length){
+  console.log("left this 1 room");
+  playernumber1 = true;
+  playercount1 = 0;
+  io.to(1).emit("leavelobby");
+}
 
 
-playercount1 = 0;
-playercount2 = 0;
-playercount3 = 0;
+
+
+var temp2 = room2players;
+room2players = room2players.filter(e => e != socket.username);
+
+if(room2players.length < temp2.length){
+  console.log("left this 2 room");
+  playernumber2 = true;
+  playercount2 = 0;
+  io.to(2).emit("leavelobby");
+}
+
+
+
+var temp3 = room3players;
+room3players = room3players.filter(e => e != socket.username);
+
+if(room3players.length < temp3.length){
+  console.log("left this 3 room");
+  playernumber3 = true;
+  playercount3 = 0;
+  io.to(3).emit("leavelobby");
+}
+
+
+
+
 
 console.log(room1players);
     console.log("disconnected");

@@ -1,18 +1,15 @@
 .playerbar{
+    height: fit-content;
     width: fit-content;
-    position: absolute;
-
-    right: 0;
-    left: 0;
-
-    margin-right: auto;
-    margin-left: auto;
-    height: 10px;
-   font-size: 26px;
+    margin: auto;
+    font-size: 3rem;
+  
+    bottom: 0;
+ 
 }
 
 .player2{
-bottom: 5%;
+
 
 }
 

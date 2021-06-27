@@ -1,8 +1,9 @@
 .turnshow{
     height: fit-content;
-    margin: 10px 10px 10px 10px;
-    font-size: 4rem;
-    position: absolute;
+    width: fit-content;
+    margin: auto;
+    font-size: 3rem;
+  
     bottom: 0;
  
 }

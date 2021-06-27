@@ -6,6 +6,7 @@ import DeadPieces from "./DeadPieces";
 import ChooseRoomName from "./ChooseRoomName";
 import PlayerBar from "./PlayerBar";
 import React, { useState, useRef, useEffect } from "react";
+import LastRow from "./LastRow";
 
 import socketClient from "socket.io-client";
 const SERVER = "/";
@@ -61,6 +62,15 @@ function App() {
     });
   }
 
+
+  socket.off("leavelobby").on("leavelobby", (data) => {
+
+console.log("you friend left lobby");
+
+  });
+
+
+
   function onPlayerChange(_newplayer) {
     // socket.emit("setcurrent", room.current);
 
@@ -94,11 +104,6 @@ function App() {
 
   return (
     <div className="App">
-      <TurnShow
-        show={turnshow}
-        currentplayer={currentplayer.current}
-        currentplayername={currentplayername}
-      ></TurnShow>
       <ChooseRoomName
         showTurnShow={onShowTurnShow}
         onUserNamePress={onUserNamePress}
@@ -119,7 +124,14 @@ function App() {
         ></ChessBoard>
         <DeadPieces player="2" deadpieces={player2dead} key="2"></DeadPieces>
       </GameArea>
+      <LastRow>
+      <TurnShow
+        show={turnshow}
+        currentplayer={currentplayer.current}
+        currentplayername={currentplayername}
+      ></TurnShow>
       <PlayerBar playernumber="2" playernames={playernames}></PlayerBar>
+      </LastRow>
     </div>
   );
 }

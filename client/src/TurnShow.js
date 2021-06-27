@@ -10,7 +10,7 @@ let style = "turnshow";
 if(props.currentplayername !== ""){
 
 
-    content = props.currentplayername + " 's turn";
+    content = props.currentplayername.split("_")[0] + " 's turn";
 
 }
 else{
