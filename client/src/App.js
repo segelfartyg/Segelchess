@@ -18,6 +18,7 @@ function App() {
   const [inside, setinside] = useState([0, 0, 0]);
   const [display, setdisplay] = useState(true);
   const room = useRef("");
+  const [deadpieces, setdeadpieces] = useState(["p2"]);
   const [playernumber, setplayernumber] = useState("");
   const currentplayer = useRef("1");
   const [playernames, setplayernames] = useState([]);
@@ -38,6 +39,12 @@ function App() {
 
   socket.off("assignnames").on("assignnames", (roomplayers) => {
     setplayernames(roomplayers);
+  });
+
+  socket.off("senddeadpieces").on("senddeadpieces", (data) => {
+    console.log(data);
+    setdeadpieces(data);
+    
   });
 
   socket.off("sendroom").on("sendroom", (currentroom) => {
@@ -90,12 +97,11 @@ console.log("you friend left lobby");
   }
 
   function onPieceKnockout(_piece, _player) {
-    if (_player === "1") {
-      setplayer1dead([...player1dead, _piece]);
-    }
-    if (_player === "2") {
-      setplayer2dead([...player2dead, _piece]);
-    }
+  
+  
+    socket.emit("deadpiece", _piece);
+ 
+
   }
 
   function onShowTurnShow(){
@@ -112,7 +118,7 @@ console.log("you friend left lobby");
       ></ChooseRoomName>
       <PlayerBar playernumber="1" playernames={playernames}></PlayerBar>
       <GameArea>
-        <DeadPieces player="1" deadpieces={player1dead} key="1"></DeadPieces>
+        <DeadPieces player="1" deadpieces={deadpieces} key="1"></DeadPieces>
         <ChessBoard
           key="g1"
           room={room}

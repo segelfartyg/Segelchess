@@ -39,7 +39,7 @@ export default function ChessBoard(props) {
     
     console.log(props.room.current);
 
-    props.socket.emit("changeboard", props.room.current, { board: _board, p1: _p1positions, p2: _p2positions });
+    props.socket.emit("changeboard", props.room.current, { board: _board, p1: _p1positions, p2: _p2positions }, props.deadpieces);
     
   
   

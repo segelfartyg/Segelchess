@@ -42,6 +42,8 @@ var currentboarddata1;
 var currentboarddata2;
 var currentboarddata3;
 
+var deadpieces1 = [];
+
 var playernumber1 = true;
 var playernumber2 = true;
 var playernumber3 = true;
@@ -178,6 +180,21 @@ io.on("connection", (socket) => {
     //playernames.push(username);
   });
 
+  socket.on("deadpiece", (deadpiece) => {
+
+    if(deadpiece.slice(-1) == "1"){
+      deadpieces1.push(deadpiece);
+      io.to(1).emit("senddeadpieces", deadpieces1);
+    }
+
+    if(deadpiece.slice(-1) == "2"){
+      deadpieces1.push(deadpiece);
+      io.to(1).emit("senddeadpieces", deadpieces1);
+    }
+ 
+    
+  })
+
   socket.on("changeboard", (room, board) => {
     switch (room) {
       case 1:
@@ -187,6 +204,9 @@ io.on("connection", (socket) => {
           playernumber1 = true;
         }
         currentboarddata1 = board;
+
+       
+       
 
         io.emit("getboard", 1, currentboarddata1);
         io.emit("sendcurrentplayer", 1, playernumber1);
