@@ -42,6 +42,16 @@ function App() {
     setplayernames(roomplayers);
   });
 
+  socket.off("showturnshow").on("showturnshow", () => {
+   console.log("FULL ROOM, SHOW TURNSHOW");
+   setturnshow(true);
+  });
+
+  socket.off("dontshowturnshow").on("dontshowturnshow", () => {
+    console.log("FULL ROOM, NO TURNSHOW");
+    setturnshow(false);
+   });
+
   socket.off("senddeadpieces").on("senddeadpieces", (data) => {
     
     var temp1 = [];
@@ -126,14 +136,15 @@ console.log("you friend left lobby");
 
   }
 
-  function onShowTurnShow(){
-    setturnshow(true);
-  }
+
+
+
+
 
   return (
     <div className="App">
       <ChooseRoomName
-        showTurnShow={onShowTurnShow}
+       
         onUserNamePress={onUserNamePress}
         display={display}
         inside={inside}

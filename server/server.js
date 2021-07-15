@@ -61,7 +61,7 @@ io.on("connection", (socket) => {
 
 
 
-
+  
 
 
   socket.emit("sendplayersinrooms", [
@@ -113,55 +113,90 @@ io.on("connection", (socket) => {
 
   socket.on("login", (username, room) => {
 
+   console.log(socket.in(room));
+
     var userId = Math.random() * 10;
-    socket.join(room);
-    socket.username = username + "_" + userId;
+    
+   
+
+
+
+    
+    
 
 
     switch (room) {
       case 1:
-        room1players.push(username + "_" + userId);
-        io.emit("playerjoined", 1);
-        console.log("Welcome player " + playercount1);
-        players.push(playercount1++);
-        io.to(room).emit("assignnames", room1players);
-        socket.emit("playerid", playercount1);
-        socket.emit("sendroom", 1);
 
+        if(room1players.length <= 1){
+          socket.join(room);
+          socket.username = username + "_" + userId;
+
+          room1players.push(username + "_" + userId);
+          io.emit("playerjoined", 1);
+          console.log("Welcome player " + playercount1);
+          players.push(playercount1++);
+          io.to(room).emit("assignnames", room1players);
+          socket.emit("playerid", playercount1);
+          socket.emit("sendroom", 1);
+
+          io.to(room).emit("showturnshow");
+
+        }
+        else{
+          console.log("ROOM FULL");
+          socket.emit("dontshowturnshow");
+        }
         if (room1players.length === 2) {
           io.to(room).emit("assignnewcurrent", room1players[0]);
         }
-
         break;
+
       case 2:
-        room2players.push(username + "_" + userId);
-        io.emit("playerjoined", 2);
-        console.log("Welcome player " + playercount2);
-        players.push(playercount2++);
+         if(room2players.length <= 1){
+          socket.join(room);
+          socket.username = username + "_" + userId;
 
-        io.to(room).emit("assignnames", room2players);
-        socket.emit("playerid", playercount2);
-        socket.emit("sendroom", 2);
+          room2players.push(username + "_" + userId);
+          io.emit("playerjoined", 1);
+          console.log("Welcome player " + playercount2);
+          players.push(playercount2++);
+          io.to(room).emit("assignnames", room2players);
+          socket.emit("playerid", playercount2);
+          socket.emit("sendroom", 2);
 
+          io.to(room).emit("showturnshow");
+        }
+        else{
+          console.log("ROOM FULL");
+          socket.emit("dontshowturnshow");
+        }
         if (room2players.length === 2) {
           io.to(room).emit("assignnewcurrent", room2players[0]);
         }
-
         break;
-      case 3:
+       
+      case 3:   if(room3players.length <= 1){
+        socket.join(room);
+        socket.username = username + "_" + userId;
+
         room3players.push(username + "_" + userId);
         io.emit("playerjoined", 3);
         console.log("Welcome player " + playercount3);
         players.push(playercount3++);
-
         io.to(room).emit("assignnames", room3players);
         socket.emit("playerid", playercount3);
         socket.emit("sendroom", 3);
 
-        if (room3players.length === 2) {
-          io.to(room).emit("assignnewcurrent", room3players[0]);
-        }
-
+        io.to(room).emit("showturnshow");
+      }
+      else{
+        console.log("ROOM FULL");
+        socket.emit("dontshowturnshow");
+      }
+      if (room2players.length === 2) {
+        io.to(room).emit("assignnewcurrent", room3players[0]);
+      }
         break;
       default:
         break;
@@ -173,9 +208,7 @@ io.on("connection", (socket) => {
       room3players.length,
     ]);
 
-    console.log("Room 1: ", room1players);
-    console.log("Room 2: ", room2players);
-    console.log("Room 3: ", room3players);
+    
 
     //playernames.push(username);
   });
