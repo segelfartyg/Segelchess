@@ -108,24 +108,30 @@ console.log("you friend left lobby");
 
   });
 
+  socket.off("sendcurrentplayer").on("sendcurrentplayer", (_room, player) => {
+    let pnumber;
 
-
-  function onPlayerChange(_newplayer) {
-    // socket.emit("setcurrent", room.current);
-
-    socket.off("sendcurrentplayer").on("sendcurrentplayer", (_room, player) => {
-      let pnumber;
-
-      if (room.current == _room) {
-        if (player) {
-          pnumber = "1";
-        } else {
-          pnumber = "2";
-        }
+      if (player) {
+        pnumber = "1";
+      } else {
+        pnumber = "2";
       }
+ 
+    currentplayer.current = pnumber;
+  });
 
-      currentplayer.current = pnumber;
-    });
+
+
+
+  function onPlayerChange(cplayer) {
+    if(cplayer){
+      currentplayer.current = "1";
+    }
+    else{
+      currentplayer.current = "2";
+    }
+
+    
   }
 
   function onPieceKnockout(_piece, _player) {

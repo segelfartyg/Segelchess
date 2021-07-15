@@ -19,13 +19,13 @@ export default function ChessBoard(props) {
   props.socket.removeAllListeners("getboard");  
 
   
-  props.socket.on("getboard", (room, data) => {
+  props.socket.on("getboard", (room, data, currentplayer) => {
 
     if(room == props.room.current){
       setgameBoard(data.board);
       p1Positions.current = data.p1.current;
       p2Positions.current = data.p2.current;
-      props.onPlayerChange();
+      props.onPlayerChange(currentplayer);
       reRender([]);
     }
   
@@ -827,7 +827,9 @@ export default function ChessBoard(props) {
   // EVENT FUNCTION, FIRES OF WHEN A TILES IS CLICKED
 
   function onsendNodePlacement(_node, _piece) {
-   
+  
+    
+    console.log(props.currentplayer.current, props.playernumber);
 if(props.currentplayer.current == props.playernumber){
  
     
