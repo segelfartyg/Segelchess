@@ -349,6 +349,7 @@ io.on("connection", (socket) => {
       console.log(socket.username + " LOST!");
       deadpieces1 = [];
       io.to(1).emit("senddeadpieces", deadpieces1);
+      io.to(1).emit("assignnewcurrent", "noplayer");
       io.to(1).emit("leavelobby2");
       io.to(1).emit("getboard", 1, initboard, playernumber1);
       socket.leave(1); 
@@ -365,6 +366,7 @@ io.on("connection", (socket) => {
       console.log(socket.username + " LOST!");
       deadpieces2 = [];
       io.to(2).emit("senddeadpieces", deadpieces2);
+      io.to(2).emit("assignnewcurrent", "noplayer");
       io.to(2).emit("leavelobby2");
       io.to(2).emit("getboard", 2, initboard, playernumber2);
       socket.leave(2); 
@@ -381,6 +383,7 @@ io.on("connection", (socket) => {
       console.log(socket.username + " LOST!");
       deadpieces3 = [];
       io.to(3).emit("senddeadpieces", deadpieces3);
+      io.to(3).emit("assignnewcurrent", "noplayer");
       io.to(3).emit("leavelobby2");
       io.to(3).emit("getboard", 3, initboard, playernumber3);
       socket.leave(3); 
@@ -407,6 +410,7 @@ io.on("connection", (socket) => {
       playercount1 = 0;
       room1players = [];
       console.log(socket.username + " LOST!");
+      io.to(1).emit("assignnewcurrent", "noplayer");
       deadpieces1 = [];
       io.to(1).emit("senddeadpieces", deadpieces1);
       socket.leave(1);
@@ -421,6 +425,7 @@ io.on("connection", (socket) => {
       playercount2 = 0;
       room2players = [];
       console.log(socket.username + " LOST!");
+      io.to(2).emit("assignnewcurrent", "noplayer");
       deadpieces2 = [];
       io.to(2).emit("senddeadpieces", deadpieces2);
       socket.leave(2);
@@ -437,6 +442,7 @@ io.on("connection", (socket) => {
       playercount3 = 0;
       room3players = [];
       deadpieces3 = [];
+      io.to(3).emit("assignnewcurrent", "noplayer");
       io.to(3).emit("senddeadpieces", deadpieces3);
       console.log(socket.username + " LOST!")
       socket.leave(3);
