@@ -1,9 +1,12 @@
-.turnshow{
+.leavebutton{
     height: fit-content;
     width: fit-content;
     margin: auto;
     font-size: 3rem;
 
     bottom: 0;
- 
+}
+
+.noshow{
+    display: none;
 }

@@ -7,6 +7,7 @@ import ChooseRoomName from "./ChooseRoomName";
 import PlayerBar from "./PlayerBar";
 import React, { useState, useRef, useEffect } from "react";
 import LastRow from "./LastRow";
+import LeaveButton from "./LeaveButton";
 
 import socketClient from "socket.io-client";
 const SERVER = "/";
@@ -21,6 +22,7 @@ function App() {
   const [deadpieces1, setdeadpieces1] = useState(["p1"]);
   const [deadpieces2, setdeadpieces2] = useState(["p2"]);
   const [playernumber, setplayernumber] = useState("");
+  const [showleavebutton, setshowleavebutton] = useState(false);
   const currentplayer = useRef("1");
   const [playernames, setplayernames] = useState([]);
   const [playername, setplayername] = useState("");
@@ -84,6 +86,11 @@ function App() {
     console.log("Client connected to: " + room.current);
   });
 
+  
+  socket.off("showleavebutton").on("showleavebutton", () => {
+   setshowleavebutton(true);
+  });
+
   socket
     .off("sendplayersinrooms")
     .on("sendplayersinrooms", (playersinrooms) => {
@@ -104,9 +111,28 @@ function App() {
 
   socket.off("leavelobby").on("leavelobby", (data) => {
 
-console.log("you friend left lobby");
+console.log("YOU WON");
+setdisplay(true);
+setplayernames([]);
+setturnshow(false);
+setshowleavebutton(false);
+setcurrentplayername("");
+socket.emit("leave", room.current);
 
   });
+
+
+  socket.off("leavelobby2").on("leavelobby2", (data) => {
+
+  
+    setdisplay(true);
+    setplayernames([]);
+    setturnshow(false);
+    setshowleavebutton(false);
+    setcurrentplayername("");
+    socket.emit("leave", room.current);
+    
+      });
 
   socket.off("sendcurrentplayer").on("sendcurrentplayer", (_room, player) => {
     let pnumber;
@@ -139,6 +165,15 @@ console.log("you friend left lobby");
   
     socket.emit("deadpiece", _piece);
  
+
+  }
+
+  function onLeaveClick(){
+
+
+    console.log("HEJFRÅNLEAVEKNAPP");
+
+    socket.emit("leaveroom", room.current);
 
   }
 
@@ -176,6 +211,7 @@ console.log("you friend left lobby");
         currentplayername={currentplayername}
       ></TurnShow>
       <PlayerBar playernumber="2" playernames={playernames}></PlayerBar>
+      <LeaveButton onLeaveClick={onLeaveClick} showleavebutton={showleavebutton}></LeaveButton>
       </LastRow>
     </div>
   );
